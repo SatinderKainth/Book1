@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shell</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}"> 
+</head>
+<body>
+    <form action="/add-book" method = "post">
+    {% csrf_token %}
+        <h1> Add a Book</h1>
+            Title: <input type="text" name="title" id="title">
+            Description: <input type="textArea" name="desc" id = "desc">
+            <button>Add</button>
+    </form>
+
+    <h1>Book Name</h1>
+    {% comment %} {% for book in all_books  %}
+    <h3>{{ book }}</h3>
+    {% endfor %} {% endcomment %}
+    
+        <table>
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Title</td>
+                    <td>Action</td>    
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in all_books %}
+                    <tr>
+                    <td>{{ book.id }}</td>
+                    <td>{{ book.title }}</td>
+                    <td> <a href="/books/{{ book.id }}"> View </a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <form action="/add-author" method="post">
+    {% csrf_token %}
+        <h1>Add an Author</h1>
+        First Name: <input type="text" name="f_name" id="f_name">
+        Last Name : <input type ="text" name="l_name" id="l_name">
+        Notes : <input type="textArea" name="notes" id="notes">
+        <button>Add</button>
+
+    </form>
+    <h2>Authors</h2>
+<table>
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Action</td>    
+                </tr>
+            </thead>
+            <tbody>
+                {% for author in all_authors %}
+                    <tr>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.first_name }}{{ author.last_name }}</td>
+                    <td> <a href="/authors/{{ author.id }}"> View </a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</body>
+</html>
